@@ -5,7 +5,7 @@ on: [push]
 jobs:
     hadolint:
       name: Check wth hadolin
-      runs-on: ubuntu-lastest
+      runs-on: ubuntu-latest
       containers: hadolint/hadolint
       steps:
         - name: Checkout source code 
@@ -14,11 +14,12 @@ jobs:
           run: hadolint Dockerfile
 
     test_unit:
-       name: do test unit
-       runs-on: ubuntu-lastest
-       containers: dockerlennyy/blog_php
-       steps:
-        - name: install composer
+        name: test
+        runs-on: ubuntu-latest
+        container: dockerlennyy/blog_php
+        steps:
+          - name: run composer install
           run: composer install
-        - name: script
-          run php/phpunit 
+          - name: do the test
+          run: bin/phpunit
+        
