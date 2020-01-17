@@ -1,6 +1,6 @@
 name: Tests
 
-on: [push]
+on: push
 
 jobs:
     hadolint:
@@ -14,12 +14,15 @@ jobs:
           run: hadolint Dockerfile
 
     test_unit:
-        name: test
-        runs-on: ubuntu-latest
-        container: dockerlennyy/blog_php
-        steps:
-          - name: run composer install
+      name: Run unit test (PHPUnit)
+      runs-on: ubuntu-latest
+      container: dockerlennyy/blog_php
+      needs: 
+        - hadolint
+      step:
+        - name: Checkout source code
+          uses: actions/checkout@v2
+        - name: Install dependencies (compose)
           run: composer install
-          - name: do the test
+        - name: Run unit test
           run: bin/phpunit
-        
