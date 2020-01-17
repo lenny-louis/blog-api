@@ -25,4 +25,4 @@ jobs:
       - name: Install dependencies (compose)
         run: composer install
       - name: Run unit test
-        run: bin/phpunit
+        run: php bin/phpunit
