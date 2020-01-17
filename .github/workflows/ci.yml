@@ -1,14 +1,24 @@
 name: Tests
 
-on: [pull_request]
+on: [push]
 
 jobs:
-  hadolint:
-    name: Check docker images (Hadolint)
-    runs-on: ubuntu-latest
-    container: hadolint/hadolint
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v2
-      - name: Checking image Best Practices
-        run: hadolint Dockerfile
+    hadolint:
+      name: Check wth hadolin
+      runs-on: ubuntu-lateste
+      containers: hadolint/hadolint
+      steps:
+        - name: Checkout source code 
+          uses: actions/checkout@v2
+        - name: Check image
+          run: hadolint Dockerfile
+
+    test_unit:
+       name: do test unit
+       runs-on: ubuntu-lateste
+       containers: dockerlennyy/blog_php
+       steps:
+        - name: install composer
+          run: composer install
+        - name: script
+          run php/phpunit 
